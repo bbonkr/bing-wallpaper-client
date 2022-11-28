@@ -1,4 +1,4 @@
-import "./tailwindcss.css";
+import "./tailwind.css";
 import "./globals.css";
 
 export default function RootLayout({

@@ -1,14 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
-
+import NextImage from 'next/image';
 import './style.css';
+
+type Size = { width: number; height: number };
 
 export interface ImageProps {
     imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
     imageSrc?: string;
     imageThumbnailSrc?: string;
     isRequestFullScreen?: boolean;
+    objectFit?: 'fill' | 'contain' | 'cover';
+    size?: Size;
+    fill?: boolean;
     onClick?: () => void;
-    onLoaded?: (el?: HTMLImageElement | null) => void;
+    onLoaded?: (el?: HTMLElement | null) => void;
     onRequestedFullscreen?: () => void;
 }
 
@@ -17,6 +22,9 @@ export const Image = ({
     imageThumbnailSrc,
     isRequestFullScreen,
     imgProps,
+    objectFit,
+    size,
+    fill,
     onClick,
     onRequestedFullscreen,
     onLoaded,
@@ -24,7 +32,8 @@ export const Image = ({
     const [imageLoaded, setImageLoaded] = useState(false);
     const [thumbnailLoaded, setThumbnailLoaded] = useState(false);
 
-    const imageRef = useRef<HTMLImageElement>(null);
+    // const imageRef = useRef<HTMLImageElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
     const observerRef = useRef<IntersectionObserver>();
 
     const handleImageLoaded = (
@@ -88,7 +97,11 @@ export const Image = ({
             //     typeof imageRef.current?.requestFullscreen,
             // );
             if (typeof imageRef.current?.requestFullscreen === 'function') {
-                imageRef.current?.requestFullscreen();
+                // imageRef.current?.requestFullscreen();
+                const imageEl = imageRef.current.querySelector('img');
+                if (imageEl) {
+                    imageEl.requestFullscreen();
+                }
             }
             if (onRequestedFullscreen) {
                 onRequestedFullscreen();
@@ -98,15 +111,24 @@ export const Image = ({
 
     return (
         // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-        <img
-            {...imgProps}
-            ref={imageRef}
-            src={imgProps?.src ?? imageLoaded ? imageSrc : imageThumbnailSrc}
-            className={`${imgProps?.className ?? ''} ${
-                imageSrc && imageThumbnailSrc ? 'lazy-load-image' : ''
-            } ${imageLoaded ? 'loaded' : ''} ${onClick ? 'is-clickable' : ''}`}
-            onLoad={handleImageLoaded}
-            onClick={onClick}
-        />
+        <div className="image-container" ref={imageRef}>
+            <NextImage
+                fill={fill}
+                width={size?.width ?? 0}
+                height={size?.height ?? 0}
+                src={imageSrc ?? ''}
+                className={`${imgProps?.className ?? ''} ${
+                    imageSrc && imageThumbnailSrc ? 'lazy-load-image' : ''
+                } ${imageLoaded ? 'loaded' : ''} ${
+                    onClick ? 'is-clickable' : ''
+                } object-fit-${objectFit ?? 'contain'}`}
+                onLoad={handleImageLoaded}
+                onClick={onClick}
+                alt={imgProps?.alt ?? ''}
+                loading="lazy"
+                placeholder="blur"
+                blurDataURL={imageThumbnailSrc}
+            />
+        </div>
     );
 };

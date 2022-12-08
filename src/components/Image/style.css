@@ -1,10 +1,30 @@
-img.lazy-load-image {
+.image-container {
+    position: relative;
+    flex: 1;
+}
+.image-container img {
+    /* object-fit: contain; */
+}
+
+.image-container img .object-fit-contain {
+    object-fit: contain;
+}
+
+.image-container img .object-fit-cover {
+    object-fit: cover;
+}
+
+.image-container img .object-fit-fill {
+    object-fit: fill;
+}
+
+.image-container img.lazy-load-image {
     width: 100%;
     padding: 0;
     -webkit-filter: blur(0.15rem);
     filter: blur(0.15rem);
 }
 
-img.lazy-load-image.loaded {
+.image-container img.lazy-load-image.loaded {
     filter: none;
 }

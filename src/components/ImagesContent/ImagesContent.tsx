@@ -6,10 +6,11 @@ import { Section } from '../Section';
 import { FaSync } from 'react-icons/fa';
 import useSWRInfinite from 'swr/infinite';
 // import { ApiClient } from '../../services';
-import { ImagesApi } from '../../sdk';
+import { ImageItemModel, ImageItemModelPagedModel, ImagesApi } from '../../sdk';
 
 import Loading from '../Loading';
 import { Fetcher } from '../../lib/Fetcher/Fetcher';
+import { FullSizeImage } from '../FullSizeImage';
 
 export const ImagesContent = () => {
     const { axiosInstance, configuration, baseUrl } = new Fetcher({
@@ -18,14 +19,18 @@ export const ImagesContent = () => {
     });
 
     const [hasMoreImages, setHasMoreImages] = useState(true);
+    const [selectedImage, setSelectedImage] = useState<ImageItemModel>();
 
     const take = 10;
 
-    const { data, error, isValidating, size, setSize } = useSWRInfinite(
-        (index: number) => {
+    const { data, error, isValidating, setSize } = useSWRInfinite(
+        (index: number, previousData: ImageItemModelPagedModel) => {
+            if (previousData && previousData.isLastPage) {
+                return null;
+            }
             const page = index + 1;
-            // console.info('useSWRInfinite, getKey page => ', page);
-            return [`/api/images?page=${page}`, page];
+
+            return [`/api/v1/images?page=${page}`, page];
         },
         (_: any, page: number) =>
             new ImagesApi(configuration, baseUrl, axiosInstance)
@@ -33,19 +38,19 @@ export const ImagesContent = () => {
                 .then((res) => {
                     console.info(res.data.data);
                     return res.data.data;
-                })
-                .catch((err) => {
-                    console.error(err);
                 }),
-        // new ApiClient().images
-        //     .apiv10ImagesGetAll({ page, take })
-        //     .then((res) => res.data.data),
-        {
-            revalidateOnFocus: false,
-            revalidateOnMount: false,
-            revalidateOnReconnect: false,
-            refreshInterval: 0,
-        },
+        // fetch(`/api/images/?page=${page}`, { method: 'GET' })
+        //     .then((res) => {
+        //         // console.info('res', res.json());
+        //         return res.json();
+        //     })
+        //     .then((res) => res.data as ImageItemModelPagedModel),
+        // {
+        //     revalidateOnFocus: false,
+        //     revalidateOnMount: false,
+        //     revalidateOnReconnect: false,
+        //     refreshInterval: 0,
+        // },
     );
 
     const handleClickLoadMore = () => {
@@ -56,6 +61,14 @@ export const ImagesContent = () => {
 
     const handleClickRefresh = () => {
         setSize((_) => 1);
+    };
+
+    const handleCloseFullSizeImage = () => {
+        setSelectedImage((_) => undefined);
+    };
+
+    const handleClickImageCard = (imageModel: ImageItemModel) => {
+        setSelectedImage((_) => imageModel);
     };
 
     useEffect(() => {
@@ -127,65 +140,84 @@ export const ImagesContent = () => {
         };
     }, [hasMoreImages]);
 
+    useEffect(() => {
+        if (selectedImage) {
+        } else {
+        }
+
+        return () => {};
+    }, [selectedImage]);
+
     return (
-        <Content classNames={[]}>
-            <Section
-                title={
-                    <React.Fragment>
-                        Bing Today Images{' '}
+        <React.Fragment>
+            <Content classNames={[]}>
+                <Section
+                    title={
+                        <React.Fragment>
+                            Bing Today Images{' '}
+                            <button
+                                className={`button ${
+                                    isValidating ? 'is-loading' : ''
+                                }`}
+                                disabled={isValidating}
+                                onClick={handleClickRefresh}
+                                title="Reload images"
+                            >
+                                <FaSync />
+                            </button>
+                        </React.Fragment>
+                    }
+                    useHero
+                    heroColor="is-primary"
+                    heroSize="is-small"
+                />
+
+                <Section classNames={[]}>
+                    <ListContainer>
+                        {data ? (
+                            data.map((images, index) => {
+                                if (images && images.items) {
+                                    return (
+                                        <ImagesList
+                                            key={index}
+                                            images={images.items}
+                                            apiBaseUrl={baseUrl}
+                                            onClickImageCard={
+                                                handleClickImageCard
+                                            }
+                                        />
+                                    );
+                                }
+                            })
+                        ) : (
+                            <Loading />
+                        )}
+                    </ListContainer>
+
+                    <div className="is-flex is-flex-direction-column is-justify-content-center">
                         <button
                             className={`button ${
                                 isValidating ? 'is-loading' : ''
                             }`}
-                            disabled={isValidating}
-                            onClick={handleClickRefresh}
-                            title="Reload images"
+                            disabled={isValidating || !hasMoreImages}
+                            onClick={handleClickLoadMore}
+                            title="Load more images"
                         >
-                            <FaSync />
+                            <span>
+                                {hasMoreImages
+                                    ? 'Load more'
+                                    : 'End of the image list'}
+                            </span>
                         </button>
-                    </React.Fragment>
-                }
-                useHero
-                heroColor="is-primary"
-                heroSize="is-small"
+                    </div>
+                </Section>
+            </Content>
+            <FullSizeImage
+                apiBaseUrl={baseUrl}
+                picture={selectedImage}
+                onClose={handleCloseFullSizeImage}
             />
-
-            <Section classNames={[]}>
-                <ListContainer>
-                    {data ? (
-                        data.map((images, index) => {
-                            if (images && images.items) {
-                                return (
-                                    <ImagesList
-                                        key={index}
-                                        images={images.items}
-                                        apiBaseUrl={baseUrl}
-                                    />
-                                );
-                            }
-                        })
-                    ) : (
-                        <Loading />
-                    )}
-                </ListContainer>
-                <ListContainer></ListContainer>
-
-                <div className="is-flex is-flex-direction-column is-justify-content-center">
-                    <button
-                        className={`button ${isValidating ? 'is-loading' : ''}`}
-                        disabled={isValidating || !hasMoreImages}
-                        onClick={handleClickLoadMore}
-                        title="Load more images"
-                    >
-                        <span>
-                            {hasMoreImages
-                                ? 'Load more'
-                                : 'End of the image list'}
-                        </span>
-                    </button>
-                </div>
-            </Section>
-        </Content>
+        </React.Fragment>
     );
 };
 

@@ -6,9 +6,14 @@ import { ImageCard } from './ImageCard';
 interface ImagesListProps {
     images: ImageItemModel[];
     apiBaseUrl?: string;
+    onClickImageCard?: (image: ImageItemModel) => void;
 }
 
-export const ImagesList = ({ images, apiBaseUrl }: ImagesListProps) => {
+export const ImagesList = ({
+    images,
+    apiBaseUrl,
+    onClickImageCard,
+}: ImagesListProps) => {
     return (
         <React.Fragment>
             {images.map((image) => (
@@ -16,6 +21,7 @@ export const ImagesList = ({ images, apiBaseUrl }: ImagesListProps) => {
                     key={image.id}
                     image={image}
                     apiBaseUrl={apiBaseUrl}
+                    onClickCard={onClickImageCard}
                 />
             ))}
         </React.Fragment>

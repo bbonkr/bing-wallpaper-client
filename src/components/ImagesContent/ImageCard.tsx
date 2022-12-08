@@ -7,29 +7,40 @@ import './style.css';
 interface ImageCardProps {
     image: ImageItemModel;
     apiBaseUrl?: string;
-    onClose?: () => void;
+    onClickCard?: (imageItemModel: ImageItemModel) => void;
 }
 
-export const ImageCard = ({ image, apiBaseUrl, onClose }: ImageCardProps) => {
+export const ImageCard = ({
+    image,
+    apiBaseUrl,
+    onClickCard,
+}: ImageCardProps) => {
+    const handleClick = () => {
+        onClickCard && onClickCard(image);
+    };
+
+    const imageUri = `${apiBaseUrl}/api/v1/files/${encodeURIComponent(
+        `${image.fileName}`,
+    )}`;
+    const imageThumbnailUri = `${apiBaseUrl}/api/v1/files/${encodeURIComponent(
+        `${image.fileName}`,
+    )}?type=thumbnail`;
+
     return (
         <div
-            className="column is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd clickable "
-            onClick={onClose}
+            className="column is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd clickable image-card"
+            onClick={handleClick}
         >
             <figure className="is-position-relative">
                 <Image
-                    imageSrc={`${
-                        apiBaseUrl ?? ''
-                    }/api/v1/files/${encodeURIComponent(`${image.fileName}`)}`}
-                    imageThumbnailSrc={`${
-                        apiBaseUrl ?? ''
-                    }/api/v1/files/${encodeURIComponent(
-                        `${image.fileName}`,
-                    )}?type=thumbnail`}
+                    imageSrc={imageUri}
+                    imageThumbnailSrc={imageThumbnailUri}
                     imgProps={{
                         title: image.title ?? image.fileName ?? '',
                         alt: image.title ?? image.fileName ?? '',
                     }}
+                    fill
+                    objectFit="fill"
                 />
                 <figcaption className="card-title-over-image rounded-bottom">
                     {image.title ?? image.fileName}

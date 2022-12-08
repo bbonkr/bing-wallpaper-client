@@ -10,25 +10,25 @@
         "gen": "dotenv -v TS_POST_PROCESS_FILE=true -- openapi-generator-cli generate -i http://localhost:33541/swagger/v1/swagger.json -g typescript-axios -o src/sdk -c ./openapi.config.json --enable-post-process-file"
     },
     "dependencies": {
-        "@types/node": "18.11.9",
-        "@types/react": "18.0.25",
-        "@types/react-dom": "18.0.9",
+        "bulma": "^0.9.4",
+        "dayjs": "^1.11.7",
         "eslint": "8.28.0",
         "eslint-config-next": "13.0.5",
         "next": "13.0.5",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-icons": "^4.6.0",
-        "swr": "^1.3.0",
-        "typescript": "4.9.3"
+        "swr": "^1.3.0"
     },
     "devDependencies": {
         "@openapitools/openapi-generator-cli": "^2.5.2",
+        "@types/node": "18.11.9",
+        "@types/react": "18.0.25",
+        "@types/react-dom": "18.0.9",
         "autoprefixer": "^10.4.13",
         "css-loader": "^6.7.2",
         "dotenv-cli": "^6.0.0",
-        "postcss": "^8.4.19",
         "style-loader": "^3.3.1",
-        "tailwindcss": "^3.2.4"
+        "typescript": "4.9.3"
     }
 }

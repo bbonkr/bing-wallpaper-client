@@ -1,10 +1,12 @@
 import { Configuration, ObjectApiResponseModel } from '../../sdk';
 import axios, { AxiosError, AxiosInstance } from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 
 interface FetcherOptions {
     accessTokenScheme?: string;
     accessToken?: string;
     refreshToken?: string;
+    axiosConfig?: AxiosRequestConfig<any> | undefined;
 }
 
 export class Fetcher {
@@ -13,8 +15,8 @@ export class Fetcher {
             accessTokenScheme: 'Bearer',
         };
 
-        this.baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '';
-        this.axiosInstance = this.getAxiosInstance();
+        this.baseUrl = process.env.API_BASE_URL || '';
+        this.axiosInstance = this.getAxiosInstance(options?.axiosConfig);
 
         // token refresh
         this.axiosInstance.interceptors.request.use(
@@ -45,14 +47,18 @@ export class Fetcher {
             },
         );
 
-        this.configuration = new Configuration({});
+        this.configuration = new Configuration({
+            basePath: this.baseUrl,
+        });
     }
     public readonly axiosInstance: AxiosInstance;
     public readonly configuration: Configuration;
     public readonly baseUrl: string;
 
-    private getAxiosInstance(): AxiosInstance {
-        const instance = axios.create();
+    private getAxiosInstance(
+        config?: AxiosRequestConfig<any> | undefined,
+    ): AxiosInstance {
+        const instance = axios.create(config);
         return instance;
     }
 }

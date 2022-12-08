@@ -1,9 +1,10 @@
 .is-position-relative {
     position: relative;
-    min-height: 140px;
+    min-height: calc(100vh / 4);
+    /* min-height: 240px; */
 }
 
-figure.is-position-relative{
+figure.is-position-relative {
     margin: 0 !important;
 }
 
@@ -20,21 +21,26 @@ figure.is-position-relative{
 
 .card-title-over-image {
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
     left: 0;
     right: 0;
     background-color: #000000a2;
     display: flex;
     flex-direction: column;
     align-items: start;
+    padding: 0.3rem 0.6rem;
 }
 
 .card-title-over-image p,
 figcaption.card-title-over-image {
     color: #efefef;
-    padding: .3rem .6rem;
+    padding: 0.3rem 0.6rem;
 }
 
 .clickable {
     cursor: pointer;
+}
+
+.image-card figure {
+    display: flex;
 }

@@ -2,30 +2,27 @@ import { Configuration, ObjectApiResponseModel } from '../../sdk';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import type { AxiosRequestConfig } from 'axios';
 
-interface FetcherOptions {
+type FetcherOptions = {
     accessTokenScheme?: string;
     accessToken?: string;
     refreshToken?: string;
-    axiosConfig?: AxiosRequestConfig<any> | undefined;
-}
+    axiosConfig?: AxiosRequestConfig<any>;
+};
 
 export class Fetcher {
     constructor(options?: FetcherOptions) {
-        const fetcherOptions = options ?? {
+        const fetcherOptions: FetcherOptions = options ?? {
             accessTokenScheme: 'Bearer',
         };
 
-        this.baseUrl = process.env.API_BASE_URL || '';
+        this.baseUrl = process.env.API_BASE_URL ?? '';
         this.axiosInstance = this.getAxiosInstance(options?.axiosConfig);
 
         // token refresh
         this.axiosInstance.interceptors.request.use(
             (config) => {
                 if (fetcherOptions.accessToken) {
-                    config.headers = {
-                        ...(config.headers ?? {}),
-                        Authorization: `${fetcherOptions.accessTokenScheme} ${fetcherOptions.accessToken}`,
-                    };
+                    config.headers.Authorization = `${fetcherOptions.accessTokenScheme} ${fetcherOptions.accessToken}`;
                 }
 
                 return config;

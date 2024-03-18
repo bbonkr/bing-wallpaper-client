@@ -5,9 +5,7 @@ import { Content } from '../Content';
 import { Section } from '../Section';
 import { FaSync } from 'react-icons/fa';
 import useSWRInfinite from 'swr/infinite';
-// import { ApiClient } from '../../services';
 import { ImageItemModel, ImageItemModelPagedModel, ImagesApi } from '../../sdk';
-
 import Loading from '../Loading';
 import { Fetcher } from '../../lib/Fetcher/Fetcher';
 import { FullSizeImage } from '../FullSizeImage';
@@ -21,37 +19,35 @@ export const ImagesContent = () => {
     const [hasMoreImages, setHasMoreImages] = useState(true);
     const [selectedImage, setSelectedImage] = useState<ImageItemModel>();
 
-    const take = 10;
+    const take = 9;
 
-    const { data, error, isValidating, setSize } = useSWRInfinite(
-        (index: number, previousData: ImageItemModelPagedModel) => {
-            if (previousData && previousData.isLastPage) {
-                return null;
-            }
-            const page = index + 1;
+    const { data, error, isLoading, isValidating, size, setSize } =
+        useSWRInfinite(
+            (index: number, previousData: ImageItemModelPagedModel) => {
+                if (previousData && previousData.isLastPage) {
+                    return null;
+                }
+                const page = index + 1;
 
-            return [`/api/v1/images?page=${page}`, page];
-        },
-        (_: any, page: number) =>
-            new ImagesApi(configuration, baseUrl, axiosInstance)
-                .apiv10ImagesGetAll({ page, take })
-                .then((res) => {
-                    console.info(res.data.data);
-                    return res.data.data;
-                }),
-        // fetch(`/api/images/?page=${page}`, { method: 'GET' })
-        //     .then((res) => {
-        //         // console.info('res', res.json());
-        //         return res.json();
-        //     })
-        //     .then((res) => res.data as ImageItemModelPagedModel),
-        // {
-        //     revalidateOnFocus: false,
-        //     revalidateOnMount: false,
-        //     revalidateOnReconnect: false,
-        //     refreshInterval: 0,
-        // },
-    );
+                return [
+                    `/api/v1/images?page=${page}&limit=${take}`,
+                    page,
+                    take,
+                ];
+            },
+            ([_, page, take]) => {
+                console.info(`page=${page}&limit=${take}`);
+                return new ImagesApi(configuration, baseUrl, axiosInstance)
+                    .apiv10ImagesGetAll({ page, take })
+                    .then((res) => {
+                        return res.data;
+                    });
+            },
+            {
+                initialSize: 1,
+                revalidateAll: false,
+            },
+        );
 
     const handleClickLoadMore = () => {
         if (hasMoreImages) {
@@ -148,6 +144,10 @@ export const ImagesContent = () => {
         return () => {};
     }, [selectedImage]);
 
+    useEffect(() => {
+        console.debug(`size=${size}`);
+    }, [size]);
+
     return (
         <React.Fragment>
             <Content classNames={[]}>
@@ -157,7 +157,9 @@ export const ImagesContent = () => {
                             Bing Today Images{' '}
                             <button
                                 className={`button ${
-                                    isValidating ? 'is-loading' : ''
+                                    isLoading || isValidating
+                                        ? 'is-loading'
+                                        : ''
                                 }`}
                                 disabled={isValidating}
                                 onClick={handleClickRefresh}
@@ -176,10 +178,13 @@ export const ImagesContent = () => {
                     <ListContainer>
                         {data ? (
                             data.map((images, index) => {
-                                if (images && images.items) {
+                                if (images?.items) {
+                                    const firstImage = images?.items.find(
+                                        (_, index) => index === 0,
+                                    );
                                     return (
                                         <ImagesList
-                                            key={index}
+                                            key={`imagesListFrom-${firstImage?.id}-${index}`}
                                             images={images.items}
                                             apiBaseUrl={baseUrl}
                                             onClickImageCard={

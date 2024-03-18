@@ -1,4 +1,4 @@
-export type AnchorTargets = string | '_blank' | '_slef';
+export type AnchorTargets = '_blank' | '_slef' | string;
 
 export interface LinkModel {
     title: string;

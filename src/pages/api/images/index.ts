@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { Fetcher } from '../../../lib/Fetcher';
 import {
-    ImageItemModelPagedModelApiResponseModel,
+    ImageItemModelPagedModel,
     ImagesApi,
     ObjectApiResponseModel,
 } from '../../../sdk';
@@ -10,9 +10,7 @@ import {
 // export default
 async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<
-        ImageItemModelPagedModelApiResponseModel | ObjectApiResponseModel
-    >,
+    res: NextApiResponse<ImageItemModelPagedModel | ObjectApiResponseModel>,
 ) {
     const { page, take } = req.query;
 
@@ -37,7 +35,7 @@ async function handler(
     });
 
     const status = response.status;
-    let data: ImageItemModelPagedModelApiResponseModel | ObjectApiResponseModel;
+    let data: ImageItemModelPagedModel | ObjectApiResponseModel;
     if (status >= 200 && status < 300) {
         data = response.data;
     } else {

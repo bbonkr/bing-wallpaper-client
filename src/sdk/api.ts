@@ -14,7 +14,7 @@
 
 
 import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
@@ -32,25 +32,25 @@ export interface BingImageServiceGetRequestModel {
      * @type {string}
      * @memberof BingImageServiceGetRequestModel
      */
-    format?: string | null;
+    'format'?: string | null;
     /**
      * 
      * @type {number}
      * @memberof BingImageServiceGetRequestModel
      */
-    startIndex?: number;
+    'startIndex'?: number;
     /**
      * 
      * @type {number}
      * @memberof BingImageServiceGetRequestModel
      */
-    take?: number;
+    'take'?: number;
     /**
      * 
      * @type {string}
      * @memberof BingImageServiceGetRequestModel
      */
-    market?: string | null;
+    'market'?: string | null;
 }
 /**
  * 
@@ -63,61 +63,61 @@ export interface ImageItemModel {
      * @type {string}
      * @memberof ImageItemModel
      */
-    id?: string | null;
+    'id'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ImageItemModel
      */
-    title?: string | null;
+    'title'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ImageItemModel
      */
-    fileName?: string | null;
+    'fileName'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ImageItemModel
      */
-    fileExtension?: string | null;
+    'fileExtension'?: string | null;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModel
      */
-    fileSize?: number;
+    'fileSize'?: number;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModel
      */
-    createdAt?: number;
+    'createdAt'?: number;
     /**
      * 
      * @type {string}
      * @memberof ImageItemModel
      */
-    copyright?: string | null;
+    'copyright'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ImageItemModel
      */
-    copyrightLink?: string | null;
+    'copyrightLink'?: string | null;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModel
      */
-    width?: number;
+    'width'?: number;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModel
      */
-    height?: number;
+    'height'?: number;
 }
 /**
  * 
@@ -130,98 +130,55 @@ export interface ImageItemModelPagedModel {
      * @type {number}
      * @memberof ImageItemModelPagedModel
      */
-    currentPage?: number;
+    'currentPage'?: number;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModelPagedModel
      */
-    limit?: number;
+    'limit'?: number;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModelPagedModel
      */
-    totalItems?: number;
+    'totalItems'?: number;
     /**
      * 
      * @type {number}
      * @memberof ImageItemModelPagedModel
      */
-    totalPages?: number;
+    'totalPages'?: number;
     /**
      * 
      * @type {Array<ImageItemModel>}
      * @memberof ImageItemModelPagedModel
      */
-    items?: Array<ImageItemModel> | null;
+    'items'?: Array<ImageItemModel> | null;
     /**
      * 
      * @type {boolean}
      * @memberof ImageItemModelPagedModel
      */
-    hasNextPage?: boolean;
+    'hasNextPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ImageItemModelPagedModel
      */
-    hasPreviousPage?: boolean;
+    'hasPreviousPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ImageItemModelPagedModel
      */
-    isFirstPage?: boolean;
+    'isFirstPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof ImageItemModelPagedModel
      */
-    isLastPage?: boolean;
-}
-/**
- * 
- * @export
- * @interface ImageItemModelPagedModelApiResponseModel
- */
-export interface ImageItemModelPagedModelApiResponseModel {
-    /**
-     * 
-     * @type {number}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    statusCode?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    message?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    instance?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    path?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    method?: string | null;
-    /**
-     * 
-     * @type {ImageItemModelPagedModel}
-     * @memberof ImageItemModelPagedModelApiResponseModel
-     */
-    data?: ImageItemModelPagedModel;
+    'isLastPage'?: boolean;
 }
 /**
  * 
@@ -234,103 +191,103 @@ export interface LogModel {
      * @type {number}
      * @memberof LogModel
      */
-    id?: number;
+    'id'?: number;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    message?: string | null;
+    'message'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    messageTemplate?: string | null;
+    'messageTemplate'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    level?: string | null;
+    'level'?: string | null;
     /**
      * 
      * @type {number}
      * @memberof LogModel
      */
-    timeStamp?: number;
+    'timeStamp'?: number;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    exception?: string | null;
+    'exception'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    logEvent?: string | null;
+    'logEvent'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    payload?: string | null;
+    'payload'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    queryString?: string | null;
+    'queryString'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    userRoles?: string | null;
+    'userRoles'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    userIp?: string | null;
+    'userIp'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    requestUri?: string | null;
+    'requestUri'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    httpMethod?: string | null;
+    'httpMethod'?: string | null;
     /**
      * 
      * @type {boolean}
      * @memberof LogModel
      */
-    isResolved?: boolean | null;
+    'isResolved'?: boolean | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    userAgent?: string | null;
+    'userAgent'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModel
      */
-    errors?: string | null;
+    'errors'?: string | null;
     /**
      * 
      * @type {number}
      * @memberof LogModel
      */
-    resolvedAt?: number | null;
+    'resolvedAt'?: number | null;
 }
 /**
  * 
@@ -343,55 +300,55 @@ export interface LogModelPagedModel {
      * @type {number}
      * @memberof LogModelPagedModel
      */
-    currentPage?: number;
+    'currentPage'?: number;
     /**
      * 
      * @type {number}
      * @memberof LogModelPagedModel
      */
-    limit?: number;
+    'limit'?: number;
     /**
      * 
      * @type {number}
      * @memberof LogModelPagedModel
      */
-    totalItems?: number;
+    'totalItems'?: number;
     /**
      * 
      * @type {number}
      * @memberof LogModelPagedModel
      */
-    totalPages?: number;
+    'totalPages'?: number;
     /**
      * 
      * @type {Array<LogModel>}
      * @memberof LogModelPagedModel
      */
-    items?: Array<LogModel> | null;
+    'items'?: Array<LogModel> | null;
     /**
      * 
      * @type {boolean}
      * @memberof LogModelPagedModel
      */
-    hasNextPage?: boolean;
+    'hasNextPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof LogModelPagedModel
      */
-    hasPreviousPage?: boolean;
+    'hasPreviousPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof LogModelPagedModel
      */
-    isFirstPage?: boolean;
+    'isFirstPage'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof LogModelPagedModel
      */
-    isLastPage?: boolean;
+    'isLastPage'?: boolean;
 }
 /**
  * 
@@ -404,37 +361,37 @@ export interface LogModelPagedModelApiResponseModel {
      * @type {number}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    statusCode?: number;
+    'statusCode'?: number;
     /**
      * 
      * @type {string}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    message?: string | null;
+    'message'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    instance?: string | null;
+    'instance'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    path?: string | null;
+    'path'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    method?: string | null;
+    'method'?: string | null;
     /**
      * 
      * @type {LogModelPagedModel}
      * @memberof LogModelPagedModelApiResponseModel
      */
-    data?: LogModelPagedModel;
+    'data'?: LogModelPagedModel;
 }
 /**
  * 
@@ -447,37 +404,76 @@ export interface ObjectApiResponseModel {
      * @type {number}
      * @memberof ObjectApiResponseModel
      */
-    statusCode?: number;
+    'statusCode'?: number;
     /**
      * 
      * @type {string}
      * @memberof ObjectApiResponseModel
      */
-    message?: string | null;
+    'message'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ObjectApiResponseModel
      */
-    instance?: string | null;
+    'instance'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ObjectApiResponseModel
      */
-    path?: string | null;
+    'path'?: string | null;
     /**
      * 
      * @type {string}
      * @memberof ObjectApiResponseModel
      */
-    method?: string | null;
+    'method'?: string | null;
     /**
      * 
      * @type {any}
      * @memberof ObjectApiResponseModel
      */
-    data?: any | null;
+    'data'?: any | null;
+}
+/**
+ * 
+ * @export
+ * @interface ProblemDetails
+ */
+export interface ProblemDetails {
+    [key: string]: any | any;
+
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'type'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProblemDetails
+     */
+    'status'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'detail'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProblemDetails
+     */
+    'instance'?: string | null;
 }
 
 /**
@@ -492,7 +488,7 @@ export const BingImagesApiAxiosParamCreator = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10BingImagesCollectImages: async (bingImageServiceGetRequestModel?: BingImageServiceGetRequestModel, options: any = {}): Promise<RequestArgs> => {
+        apiv10BingImagesCollectImages: async (bingImageServiceGetRequestModel?: BingImageServiceGetRequestModel, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/BingImages`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -509,7 +505,7 @@ export const BingImagesApiAxiosParamCreator = function (configuration?: Configur
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(bingImageServiceGetRequestModel, localVarRequestOptions, configuration)
@@ -535,7 +531,7 @@ export const BingImagesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiv10BingImagesCollectImages(bingImageServiceGetRequestModel?: BingImageServiceGetRequestModel, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectApiResponseModel>> {
+        async apiv10BingImagesCollectImages(bingImageServiceGetRequestModel?: BingImageServiceGetRequestModel, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObjectApiResponseModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiv10BingImagesCollectImages(bingImageServiceGetRequestModel, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -589,7 +585,7 @@ export class BingImagesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BingImagesApi
      */
-    public apiv10BingImagesCollectImages(requestParameters: BingImagesApiApiv10BingImagesCollectImagesRequest = {}, options?: any) {
+    public apiv10BingImagesCollectImages(requestParameters: BingImagesApiApiv10BingImagesCollectImagesRequest = {}, options?: AxiosRequestConfig) {
         return BingImagesApiFp(this.configuration).apiv10BingImagesCollectImages(requestParameters.bingImageServiceGetRequestModel, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -608,7 +604,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10FilesGetFileByFileName: async (fileName: string, type?: string, options: any = {}): Promise<RequestArgs> => {
+        apiv10FilesGetFileByFileName: async (fileName: string, type?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'fileName' is not null or undefined
             assertParamExists('apiv10FilesGetFileByFileName', 'fileName', fileName)
             const localVarPath = `/api/v1/Files/{fileName}`
@@ -630,7 +626,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -646,7 +642,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10FilesGetFileById: async (id: string, type?: string, options: any = {}): Promise<RequestArgs> => {
+        apiv10FilesGetFileById: async (id: string, type?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('apiv10FilesGetFileById', 'id', id)
             const localVarPath = `/api/v1/Files/{id}`
@@ -668,7 +664,7 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -694,7 +690,7 @@ export const FilesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiv10FilesGetFileByFileName(fileName: string, type?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async apiv10FilesGetFileByFileName(fileName: string, type?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiv10FilesGetFileByFileName(fileName, type, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -705,7 +701,7 @@ export const FilesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiv10FilesGetFileById(id: string, type?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+        async apiv10FilesGetFileById(id: string, type?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiv10FilesGetFileById(id, type, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -798,7 +794,7 @@ export class FilesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FilesApi
      */
-    public apiv10FilesGetFileByFileName(requestParameters: FilesApiApiv10FilesGetFileByFileNameRequest, options?: any) {
+    public apiv10FilesGetFileByFileName(requestParameters: FilesApiApiv10FilesGetFileByFileNameRequest, options?: AxiosRequestConfig) {
         return FilesApiFp(this.configuration).apiv10FilesGetFileByFileName(requestParameters.fileName, requestParameters.type, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -809,7 +805,7 @@ export class FilesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FilesApi
      */
-    public apiv10FilesGetFileById(requestParameters: FilesApiApiv10FilesGetFileByIdRequest, options?: any) {
+    public apiv10FilesGetFileById(requestParameters: FilesApiApiv10FilesGetFileByIdRequest, options?: AxiosRequestConfig) {
         return FilesApiFp(this.configuration).apiv10FilesGetFileById(requestParameters.id, requestParameters.type, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -828,7 +824,7 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10ImagesGetAll: async (page?: number, take?: number, options: any = {}): Promise<RequestArgs> => {
+        apiv10ImagesGetAll: async (page?: number, take?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/Images`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -851,7 +847,7 @@ export const ImagesApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -877,7 +873,7 @@ export const ImagesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiv10ImagesGetAll(page?: number, take?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageItemModelPagedModelApiResponseModel>> {
+        async apiv10ImagesGetAll(page?: number, take?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ImageItemModelPagedModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiv10ImagesGetAll(page, take, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -898,7 +894,7 @@ export const ImagesApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10ImagesGetAll(page?: number, take?: number, options?: any): AxiosPromise<ImageItemModelPagedModelApiResponseModel> {
+        apiv10ImagesGetAll(page?: number, take?: number, options?: any): AxiosPromise<ImageItemModelPagedModel> {
             return localVarFp.apiv10ImagesGetAll(page, take, options).then((request) => request(axios, basePath));
         },
     };
@@ -939,7 +935,7 @@ export class ImagesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ImagesApi
      */
-    public apiv10ImagesGetAll(requestParameters: ImagesApiApiv10ImagesGetAllRequest = {}, options?: any) {
+    public apiv10ImagesGetAll(requestParameters: ImagesApiApiv10ImagesGetAllRequest = {}, options?: AxiosRequestConfig) {
         return ImagesApiFp(this.configuration).apiv10ImagesGetAll(requestParameters.page, requestParameters.take, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -960,7 +956,7 @@ export const LogsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiv10LogsGetAll: async (page?: number, take?: number, level?: string, keyword?: string, options: any = {}): Promise<RequestArgs> => {
+        apiv10LogsGetAll: async (page?: number, take?: number, level?: string, keyword?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/Logs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -991,7 +987,7 @@ export const LogsApiAxiosParamCreator = function (configuration?: Configuration)
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -1019,7 +1015,7 @@ export const LogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiv10LogsGetAll(page?: number, take?: number, level?: string, keyword?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LogModelPagedModelApiResponseModel>> {
+        async apiv10LogsGetAll(page?: number, take?: number, level?: string, keyword?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LogModelPagedModelApiResponseModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiv10LogsGetAll(page, take, level, keyword, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1097,7 +1093,7 @@ export class LogsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof LogsApi
      */
-    public apiv10LogsGetAll(requestParameters: LogsApiApiv10LogsGetAllRequest = {}, options?: any) {
+    public apiv10LogsGetAll(requestParameters: LogsApiApiv10LogsGetAllRequest = {}, options?: AxiosRequestConfig) {
         return LogsApiFp(this.configuration).apiv10LogsGetAll(requestParameters.page, requestParameters.take, requestParameters.level, requestParameters.keyword, options).then((request) => request(this.axios, this.basePath));
     }
 }

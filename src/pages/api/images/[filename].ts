@@ -57,7 +57,7 @@ const handleResponse = async (
         if (cache) {
             let serverFileName = '';
             if (contentDisposition) {
-                contentDisposition.split(';').forEach((token) => {
+                contentDisposition.split(';').forEach((token: string) => {
                     if (token.trim().startsWith('filename=')) {
                         const tokens = token.trim().split('=');
                         serverFileName = tokens[1].trim();

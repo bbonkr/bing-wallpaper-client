@@ -22,25 +22,26 @@ export const LogsContent = () => {
     const [formState, setFormState] = useState<FormState>();
     const [hasMoreLogs, setHasMoreLogs] = useState(true);
 
-    const { data, error, isValidating, size, setSize } = useSWRInfinite(
-        (index: number) => {
-            const page = index + 1;
+    const { data, error, isLoading, isValidating, size, setSize } =
+        useSWRInfinite(
+            (index: number) => {
+                const page = index + 1;
 
-            return [
-                `/api/logs?page=${page}&level=${
-                    formState?.values.level ?? ''
-                }&keyword=${formState?.values.keyword ?? ''}`,
-                page,
-                formState?.values.level,
-                formState?.values.keyword,
-            ];
-        },
-        (_: any, page: number, level, keyword) => {
-            return new LogsApi(configuration, baseUrl, axiosInstance)
-                .apiv10LogsGetAll({ page, take, level, keyword })
-                .then((res) => res.data.data);
-        },
-    );
+                return [
+                    `/api/logs?page=${page}&level=${
+                        formState?.values.level ?? ''
+                    }&keyword=${formState?.values.keyword ?? ''}`,
+                    page,
+                    formState?.values.level,
+                    formState?.values.keyword,
+                ];
+            },
+            ([_, page, level, keyword]) => {
+                return new LogsApi(configuration, baseUrl, axiosInstance)
+                    .apiv10LogsGetAll({ page, take, level, keyword })
+                    .then((res) => res.data.data);
+            },
+        );
 
     const handleClickLoadMore = () => {
         if (hasMoreLogs) {
@@ -94,7 +95,10 @@ export const LogsContent = () => {
                 heroColor="is-info"
             />
             <Section>
-                <LogFilter onSubmit={handleSubmit} isLoading={isValidating} />
+                <LogFilter
+                    onSubmit={handleSubmit}
+                    isLoading={isLoading || isValidating}
+                />
             </Section>
             <Section classNames={[]}>
                 <div className="table-container">
@@ -155,10 +159,10 @@ export const LogsContent = () => {
                 <div>
                     <button
                         className={`button is-fullwidth ${
-                            isValidating ? 'is-loading' : ''
+                            isLoading || isValidating ? 'is-loading' : ''
                         }`}
                         onClick={handleClickLoadMore}
-                        disabled={isValidating || !hasMoreLogs}
+                        disabled={isLoading || isValidating || !hasMoreLogs}
                         title="Load more logs"
                     >
                         <span>
